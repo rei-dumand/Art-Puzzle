@@ -23,9 +23,12 @@ A simple puzzle game that uses images of paintings from a free museum API as its
 - A presentation slides deck.
 
 ## Stack (provisional)
+While subject to change:
+- Front-end: React with Typescript
+- Back-end: Express.js | Knex.js | (Socket.io?) | PostreSQL | Typescript
 
 ## Motivation
 
 - This project is a stepping stone in learning how to create interactive web experiences.
-- One key feature that will be explored will be the use of a <Canvas>.
+- One key feature that will be explored will be the use of a \<Canvas\>.
 - This game will also make extensive use of a database to store a user's progress. A socket connection might be considered.
