@@ -10,7 +10,7 @@ function Board() {
 
     let [tiles, setTiles] = useState<number[] | null>(null);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
-    const [fire, setFire] = useState<boolean>(false);
+    // const [fire, setFire] = useState<boolean>(false);
 
     let tileWidth = useRef<number | null>(null)
     let tileHeight = useRef<number | null>(null)
@@ -72,7 +72,7 @@ function Board() {
             tileHeight.current = (board.height / colDiv.current!);
 
             setTiles([...Array(tileCount).keys()])
-            setFire(true)
+            // setFire(true)
         
         }
 
