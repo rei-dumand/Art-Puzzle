@@ -58,7 +58,7 @@ function Board() {
 
     useEffect(()=> {
         setup();
-    },[])
+    },[tiles])
 
     if (tiles !== null && tiles !== undefined && image !== undefined) {
         return (
