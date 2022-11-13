@@ -1,12 +1,14 @@
 import './App.css';
 import React from 'react';
 
-import Canvas from './components/Canvas'
+// import Canvas from './components/Canvas';
+import Board from './components/Board';
 
 function App() {
   return (
     <div className="App">
-      <Canvas />
+      {/* <Canvas /> */}
+      <Board />
     </div>
   );
 }
