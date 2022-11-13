@@ -46,6 +46,7 @@ function Board() {
                 width: image!.width,
                 height: image!.height
             }
+            console.log(board)
 
             const aspectRatio = board.width / board.height;
 
