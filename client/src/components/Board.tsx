@@ -46,13 +46,13 @@ function Board() {
             height: board.height,
         };
 
-        const rowDiv = 30
-        const colDiv = Math.round(rowDiv / aspectRatio)
+        rowDiv = 30
+        colDiv = Math.round(rowDiv / aspectRatio)
         const tileCount = rowDiv * colDiv
         console.log(tileCount)
 
-        const tileWidth = board.width / rowDiv;
-        const tileHeight = board.height / colDiv;
+        tileWidth = board.width / rowDiv;
+        tileHeight = board.height / colDiv;
         // const pieceHeight = Math.round(board.height / 10);
 
         setTiles([...Array(tileCount).keys()]);
