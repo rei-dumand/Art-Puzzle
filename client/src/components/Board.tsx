@@ -8,16 +8,7 @@ import imgURL from '../img/1964.336 - Paris Street; Rainy Day.jpg'
 
 function Board() {
 
-    const loadImage = (src: string): Promise<HTMLImageElement> => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => resolve(img);
-            img.onerror = reject;
-            img.src = src;
-        })
-            ;
-    }
-
+    
     const [tiles, setTiles] = useState<number[] | null>(null);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
     const [tileWidth, setTileWidth] = useState<number | null>(null);
@@ -26,37 +17,48 @@ function Board() {
     const [rowDiv, setRowDiv] = useState<number | null>(null);
     const [style, setStyle] = useState<Object | undefined>(undefined);
 
-    async function setup() {
-        setImage(await loadImage(imgURL).then(image => image));
-        image!.src = imgURL
+    
+    useEffect(()=> {
 
-        const board = {
-            width: image!.width,
-            height: image!.height
+        const loadImage = (src: string): Promise<HTMLImageElement> => {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = src;
+            });
+        }
+        
+        async function setup() {
+            setImage(await loadImage(imgURL).then(image => image));
+            image!.src = imgURL
+    
+            const board = {
+                width: image!.width,
+                height: image!.height
+            }
+    
+            const aspectRatio = board.width / board.height;
+    
+            console.log(aspectRatio)
+    
+            setStyle({
+                width: board.width,
+                height: board.height,
+            });
+    
+            setRowDiv(30)
+            setColDiv(Math.round(rowDiv! / aspectRatio))
+            const tileCount = rowDiv! * colDiv!
+            console.log(tileCount)
+    
+            setTileWidth(board.width / rowDiv!);
+            setTileHeight(board.height / colDiv!);
+            // const pieceHeight = Math.round(board.height / 10);
+    
+            setTiles([...Array(tileCount).keys()]);
         }
 
-        const aspectRatio = board.width / board.height;
-
-        console.log(aspectRatio)
-
-        setStyle({
-            width: board.width,
-            height: board.height,
-        });
-
-        setRowDiv(30)
-        setColDiv(Math.round(rowDiv! / aspectRatio))
-        const tileCount = rowDiv! * colDiv!
-        console.log(tileCount)
-
-        setTileWidth(board.width / rowDiv!);
-        setTileHeight(board.height / colDiv!);
-        // const pieceHeight = Math.round(board.height / 10);
-
-        setTiles([...Array(tileCount).keys()]);
-    }
-
-    useEffect(()=> {
         setup();
     },[tiles])
 
