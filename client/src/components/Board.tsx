@@ -17,6 +17,7 @@ function Board() {
     let colDiv = useRef<number | null>(null);
     let rowDiv = useRef<number | null>(null);
     let style = useRef<Object | undefined>(undefined);
+    
     // let tileCount = useRef<number | null>(null);
 
 
@@ -56,7 +57,9 @@ function Board() {
             rowDiv.current = 10;
             colDiv.current = Math.round(rowDiv.current! / aspectRatio);
             let tileCount = rowDiv.current! * colDiv.current!
-            console.log(tileCount)
+
+            console.log(rowDiv)
+            console.log(colDiv)
             tileWidth.current = (board.width / rowDiv.current!);
             tileHeight.current = (board.height / colDiv.current!);
 
@@ -64,8 +67,6 @@ function Board() {
             setFire(true)
         
         }
-
-
 
         if (image) {
             console.log("image has loaded: ", image)
@@ -75,6 +76,8 @@ function Board() {
 
     useEffect(() => {
         if (fire) {
+            console.log(rowDiv)
+            console.log(colDiv)
             console.log("has fired")
         }
     }, [fire])
