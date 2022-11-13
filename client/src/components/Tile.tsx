@@ -3,8 +3,8 @@ import React from 'react';
 import './Tile.css';
 
 function Tile(props: any) {
-    const { rowDiv, colDiv, tile, index, tileWidth, tileHeight, image} = props;
-    
+    const { rowDiv, colDiv, tile, index, tileWidth, tileHeight, image } = props;
+
     function getMatrixPosition(index: number) {
         return {
             row: Math.floor(index / rowDiv),
@@ -19,6 +19,7 @@ function Tile(props: any) {
         };
     }
     const { row, col } = getMatrixPosition(index);
+
     const visualPos = getVisualPosition(row, col, tileWidth, tileHeight);
     const tileStyle = {
         width: `calc(100% / ${rowDiv})`,
@@ -29,19 +30,23 @@ function Tile(props: any) {
         backgroundSize: `${600}px`,
         backgroundPosition: `${(100 / (rowDiv - 1)) * (tile % rowDiv)}% ${(100 / (rowDiv - 1)) * (Math.floor(tile / rowDiv))}%`,
     };
+    // console.log()
 
     return (
-        <li
-            style={{
-                ...tileStyle,
-                // backgroundColor: "blue",
-                transform: `translate3d(${tileStyle.translateX}px, ${tileStyle.translateY}px, 0)`,
-                borderRadius: 20
-            }}
-            className="tile"
-        >
-            {/* {!imgUrl && `${tile + 1}`} */}
-        </li>
+        <>
+            <li
+                style={{
+                    ...tileStyle,
+                    // backgroundColor: "blue",
+                    transform: `translate3d(${tileStyle.translateX}px, ${tileStyle.translateY}px, 0)`,
+                    borderRadius: 20
+                }}
+                className="tile"
+            >
+                {/* {!imgUrl && `${tile + 1}`} */}
+            </li>
+            {/* <>Hello</> */}
+        </>
     );
 }
 
