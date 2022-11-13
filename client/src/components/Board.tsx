@@ -1,5 +1,5 @@
 import './Board.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Tile from './Tile'
 
@@ -56,7 +56,9 @@ function Board() {
         setTiles([...Array(tileCount).keys()]);
     }
 
-    setup();
+    useEffect(()=> {
+        setup();
+    },[])
 
     if (tiles !== null && tiles !== undefined && image !== undefined) {
         return (
