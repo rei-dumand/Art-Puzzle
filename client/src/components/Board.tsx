@@ -7,39 +7,48 @@ import imgURL from '../img/1964.336 - Paris Street; Rainy Day.jpg'
 
 
 function Board() {
-    const [tiles, setTiles] = useState([...Array(500).keys()]);
-
+    
     const image = new Image()
     image.src = imgURL
-
+    
     const board = {
         width: image.width,
         height: image.height
     }
-
+    
+    const aspectRatio = board.width / board.height;
+    
+    // console.log(aspectRatio)
+    
     const style = {
         width: board.width,
         height: board.height,
     };
 
-    const pieceWidth = Math.round(board.width / 10);
-    console.log(pieceWidth)
-    const pieceHeight = pieceWidth
+    const rowDiv = 30
+    const colDiv = Math.round(rowDiv / aspectRatio)
+    const tileCount = rowDiv * colDiv
+    console.log(tileCount)
+    
+    const tileWidth = board.width / rowDiv;
+    const tileHeight = board.height / colDiv;
     // const pieceHeight = Math.round(board.height / 10);
+    
+    const [tiles, setTiles] = useState([...Array(tileCount).keys()]);
 
     return (
         <>
             <ul style={style} className="board">
                 {tiles.map((tile, index : number) => (
                     <Tile
+                        rowDiv={rowDiv}
+                        colDiv={colDiv}
                         image={image}
-                        key={tile}
                         index={index}
-                        // imgUrl={imgUrl}
                         tile={tile}
-                        width={pieceWidth}
-                        height={pieceHeight}
-                        // handleTileClick={handleTileClick}
+                        tileWidth={tileWidth}
+                        tileHeight={tileHeight}
+
                     />
                 ))}
             </ul>

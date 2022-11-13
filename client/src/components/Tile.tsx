@@ -3,15 +3,12 @@ import React from 'react';
 import './Tile.css';
 
 function Tile(props: any) {
-    const { tile, index, width, height, handleTileClick, image} = props;
-
-    const GRID_SIZE: number = 10;
-
+    const { rowDiv, colDiv, tile, index, tileWidth, tileHeight, image} = props;
     
     function getMatrixPosition(index: number) {
         return {
-            row: Math.floor(index / GRID_SIZE),
-            col: index % GRID_SIZE,
+            row: Math.floor(index / rowDiv),
+            col: index % rowDiv,
         };
     }
 
@@ -22,15 +19,15 @@ function Tile(props: any) {
         };
     }
     const { row, col } = getMatrixPosition(index);
-    const visualPos = getVisualPosition(row, col, width, height);
+    const visualPos = getVisualPosition(row, col, tileWidth, tileHeight);
     const tileStyle = {
-        width: `calc(100% / ${GRID_SIZE})`,
-        height: `calc(100% / ${GRID_SIZE})`,
+        width: `calc(100% / ${rowDiv})`,
+        height: `calc(100% / ${colDiv})`,
         translateX: visualPos.x,
         translateY: visualPos.y,
         backgroundImage: `url(${image.src})`,
         backgroundSize: `${600}px`,
-        backgroundPosition: `${(100 / (GRID_SIZE - 1)) * (tile % GRID_SIZE)}% ${(100 / (GRID_SIZE - 1)) * (Math.floor(tile / GRID_SIZE))}%`,
+        backgroundPosition: `${(100 / (rowDiv - 1)) * (tile % rowDiv)}% ${(100 / (rowDiv - 1)) * (Math.floor(tile / rowDiv))}%`,
     };
 
     return (
