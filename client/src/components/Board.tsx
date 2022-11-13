@@ -11,27 +11,22 @@ function Board() {
 
     let [tiles, setTiles] = useState<number[] | null>(null);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
-    // let [tileWidth, setTileWidth] = useState<number | null>(null);
-    // let [tileHeight, setTileHeight] = useState<number | null>(null);
+   
     let tileWidth = useRef<number | null>(null)
     let tileHeight = useRef<number | null>(null)
     let colDiv = useRef<number | null>(null);
     let rowDiv = useRef<number | null>(null);
-    // let [rowDiv, setRowDiv] = useState<number | null>(null);
     let style = useRef<Object | undefined>(undefined);
     let tileCount: number;
-
-    const [hasMounted, setHasMounted] = useState<Boolean>(false);
-
-
-    const loadImage = (src: string): Promise<HTMLImageElement> => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => resolve(img);
-            img.onerror = reject;
-            img.src = src;
-        });
-    }
+    
+    // const loadImage = (src: string): Promise<HTMLImageElement> => {
+    //     return new Promise((resolve, reject) => {
+    //         const img = new Image();
+    //         img.onload = () => resolve(img);
+    //         img.onerror = reject;
+    //         img.src = src;
+    //     });
+    // }
 
     // setImage(await loadImage(imgURL).then(image => image));
     function setup() {
