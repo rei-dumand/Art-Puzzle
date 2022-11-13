@@ -18,7 +18,7 @@ function Board() {
     
     const aspectRatio = board.width / board.height;
     
-    // console.log(aspectRatio)
+    console.log(aspectRatio)
     
     const style = {
         width: board.width,
