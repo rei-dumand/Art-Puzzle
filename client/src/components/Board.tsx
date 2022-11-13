@@ -8,38 +8,62 @@ import imgURL from '../img/1964.336 - Paris Street; Rainy Day.jpg'
 
 function Board() {
     
-    const image = new Image()
-    image.src = imgURL
-    
-    const board = {
-        width: image.width,
-        height: image.height
+    const loadImage = (src: string): Promise<HTMLImageElement> => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = src;
+        })
+        ;
     }
     
-    const aspectRatio = board.width / board.height;
+    let style;
+    let colDiv : number,
+        rowDiv : number, 
+        image : HTMLImageElement, 
+        tileWidth : number, 
+        tileHeight : number;
     
-    console.log(aspectRatio)
     
-    const style = {
-        width: board.width,
-        height: board.height,
-    };
+    const [tiles, setTiles] = useState<number[] | null>(null);
 
-    const rowDiv = 30
-    const colDiv = Math.round(rowDiv / aspectRatio)
-    const tileCount = rowDiv * colDiv
-    console.log(tileCount)
-    
-    const tileWidth = board.width / rowDiv;
-    const tileHeight = board.height / colDiv;
-    // const pieceHeight = Math.round(board.height / 10);
-    
-    const [tiles] = useState([...Array(tileCount).keys()]);
+    async function setup() {
+        const image: HTMLImageElement = await loadImage(imgURL).then(image => image);
+        image.src = imgURL
+
+        const board = {
+            width: image.width,
+            height: image.height
+        }
+
+        const aspectRatio = board.width / board.height;
+
+        console.log(aspectRatio)
+
+        style = {
+            width: board.width,
+            height: board.height,
+        };
+
+        const rowDiv = 30
+        const colDiv = Math.round(rowDiv / aspectRatio)
+        const tileCount = rowDiv * colDiv
+        console.log(tileCount)
+
+        const tileWidth = board.width / rowDiv;
+        const tileHeight = board.height / colDiv;
+        // const pieceHeight = Math.round(board.height / 10);
+
+        setTiles([...Array(tileCount).keys()]);
+    }
+
+    setup();
 
     return (
         <>
             <ul style={style} className="board">
-                {tiles.map((tile, index : number) => (
+                {tiles!.map((tile, index: number) => (
                     <Tile
                         rowDiv={rowDiv}
                         colDiv={colDiv}
