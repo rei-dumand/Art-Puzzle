@@ -18,7 +18,7 @@ function Board() {
     let rowDiv = useRef<number | null>(null);
     let style = useRef<Object | undefined>(undefined);
     let tileCount: number;
-    
+
     // const loadImage = (src: string): Promise<HTMLImageElement> => {
     //     return new Promise((resolve, reject) => {
     //         const img = new Image();
@@ -29,31 +29,7 @@ function Board() {
     // }
 
     // setImage(await loadImage(imgURL).then(image => image));
-    function setup() {
-
-        const board = {
-            width: image!.width,
-            height: image!.height
-        }
-
-        const aspectRatio = board.width / board.height;
-
-        style.current = ({
-            width: board.width,
-            height: board.height,
-        });
-
-        rowDiv.current = 10;
-        colDiv.current = Math.round(rowDiv.current! / aspectRatio)
-        tileCount = rowDiv.current! * colDiv.current!
-        console.log(tileCount)
-
-
-        tileWidth.current = (board.width / rowDiv.current!);
-        tileHeight.current = (board.height / colDiv.current!);
-        setTiles([...Array(tileCount).keys()])
-    }
-
+    
 
     useEffect(() => {
         let img = new Image();
@@ -62,6 +38,31 @@ function Board() {
     }, [])
 
     useEffect(() => {
+        function setup() {
+
+            const board = {
+                width: image!.width,
+                height: image!.height
+            }
+    
+            const aspectRatio = board.width / board.height;
+    
+            style.current = ({
+                width: board.width,
+                height: board.height,
+            });
+    
+            rowDiv.current = 10;
+            colDiv.current = Math.round(rowDiv.current! / aspectRatio)
+            tileCount = rowDiv.current! * colDiv.current!
+        
+            tileWidth.current = (board.width / rowDiv.current!);
+            tileHeight.current = (board.height / colDiv.current!);
+            setTiles([...Array(tileCount).keys()])
+        }
+    
+
+
         if (image) {
             console.log("image has loaded: ", image)
             setup();
@@ -73,7 +74,6 @@ function Board() {
     // console.log(tileHeight.current)
     // console.log(rowDiv.current)
     // console.log(colDiv.current)
-    console.log(style)
 
     if (tiles !== null && tileWidth.current !== null && tileHeight.current !== null && rowDiv.current !== null && colDiv.current !== null) {
         return (
