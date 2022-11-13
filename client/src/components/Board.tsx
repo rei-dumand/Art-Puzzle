@@ -1,5 +1,5 @@
 import './Board.css';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import Tile from './Tile'
 
@@ -34,7 +34,7 @@ function Board() {
     const tileHeight = board.height / colDiv;
     // const pieceHeight = Math.round(board.height / 10);
     
-    const [tiles, setTiles] = useState([...Array(tileCount).keys()]);
+    const [tiles] = useState([...Array(tileCount).keys()]);
 
     return (
         <>
