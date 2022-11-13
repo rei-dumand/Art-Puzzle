@@ -67,7 +67,7 @@ function Board() {
             setHasMounted(true)
         }
 
-    }, [tiles, colDiv, rowDiv, image])
+    }, [tiles, colDiv, rowDiv, image, hasMounted])
 
     if (tiles !== null && tiles !== undefined && image !== undefined) {
         return (
