@@ -56,7 +56,7 @@ function Board() {
             rowDiv.current = 10;
             colDiv.current = Math.round(rowDiv.current! / aspectRatio)
             let tileCount = rowDiv.current! * colDiv.current!
-
+            console.log(tileCount)
             tileWidth.current = (board.width / rowDiv.current!);
             tileHeight.current = (board.height / colDiv.current!);
             setTiles([...Array(tileCount).keys()])
@@ -70,16 +70,15 @@ function Board() {
         }
     }, [image])
 
-    useEffect(() => {
-        console.log(tiles)
-    }, [tiles])
+    // useEffect(() => {
+    //     console.log(tiles)
+    // }, [tiles])
 
     console.log(tiles)
-    console.log(tileWidth.current)
-    console.log(tileHeight.current)
-    console.log(rowDiv.current)
-    console.log(colDiv.current)
-    // console.log(tileCount)
+    // console.log(tileWidth.current)
+    // console.log(tileHeight.current)
+    // console.log(rowDiv.current)
+    // console.log(colDiv.current)
 
     if (tiles !== null
         && tileWidth.current !== null
