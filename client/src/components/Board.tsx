@@ -11,13 +11,13 @@ function Board() {
 
     let [tiles, setTiles] = useState<number[] | null>(null);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
-   
+
     let tileWidth = useRef<number | null>(null)
     let tileHeight = useRef<number | null>(null)
     let colDiv = useRef<number | null>(null);
     let rowDiv = useRef<number | null>(null);
     let style = useRef<Object | undefined>(undefined);
-    let tileCount: number;
+    let tileCount = useRef<number | null>(null);
 
     // const loadImage = (src: string): Promise<HTMLImageElement> => {
     //     return new Promise((resolve, reject) => {
@@ -29,7 +29,7 @@ function Board() {
     // }
 
     // setImage(await loadImage(imgURL).then(image => image));
-    
+
 
     useEffect(() => {
         let img = new Image();
@@ -44,23 +44,23 @@ function Board() {
                 width: image!.width,
                 height: image!.height
             }
-    
+
             const aspectRatio = board.width / board.height;
-    
+
             style.current = ({
                 width: board.width,
                 height: board.height,
             });
-    
+
             rowDiv.current = 10;
             colDiv.current = Math.round(rowDiv.current! / aspectRatio)
-            tileCount = rowDiv.current! * colDiv.current!
-        
+            tileCount.current = rowDiv.current! * colDiv.current!
+
             tileWidth.current = (board.width / rowDiv.current!);
             tileHeight.current = (board.height / colDiv.current!);
             setTiles([...Array(tileCount).keys()])
         }
-    
+
 
 
         if (image) {
