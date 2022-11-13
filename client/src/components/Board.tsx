@@ -38,19 +38,17 @@ function Board() {
         }
         fetchImage()
         .catch(console.error)
-        // let img = new Image();
-        // img.src = imgURL
     }, [])
 
     useEffect(() => {
         function setup() {
-            console.log("image: ", image)
+            // console.log("image: ", image)
 
             const board = {
                 width: image!.width,
                 height: image!.height
             }
-            console.log(board)
+            // console.log(board)
 
             const aspectRatio = board.width / board.height;
 
@@ -59,7 +57,7 @@ function Board() {
                 height: board.height,
             });
 
-            console.log("aspect ratio: ",aspectRatio)
+            // console.log("aspect ratio: ",aspectRatio)
             let userSetDiv = 10 // This value should be changed by the user using difficulties.
             rowDiv.current = userSetDiv;
             colDiv.current = Math.round(userSetDiv / aspectRatio);
@@ -68,8 +66,8 @@ function Board() {
 
             let tileCount = rowDiv.current! * colDiv.current!
 
-            console.log(rowDiv)
-            console.log(colDiv)
+            // console.log(rowDiv)
+            // console.log(colDiv)
             tileWidth.current = (board.width / rowDiv.current!);
             tileHeight.current = (board.height / colDiv.current!);
 
@@ -84,15 +82,15 @@ function Board() {
         }
     }, [image])
 
-    useEffect(() => {
-        if (fire) {
-            console.log(rowDiv)
-            console.log(colDiv)
-            console.log("has fired")
-        }
-    }, [fire])
+    // useEffect(() => {
+    //     if (fire) {
+    //         console.log(rowDiv)
+    //         console.log(colDiv)
+    //         console.log("has fired")
+    //     }
+    // }, [fire])
 
-    console.log(tiles)
+    // console.log(tiles)
     // console.log(tileWidth.current)
     // console.log(tileHeight.current)
     // console.log(rowDiv.current)
