@@ -21,26 +21,30 @@ function Board() {
     // let tileCount = useRef<number | null>(null);
 
 
-    // const loadImage = (src: string): Promise<HTMLImageElement> => {
-    //     return new Promise((resolve, reject) => {
-    //         const img = new Image();
-    //         img.onload = () => resolve(img);
-    //         img.onerror = reject;
-    //         img.src = src;
-    //     });
-    // }
-
-    // setImage(await loadImage(imgURL).then(image => image));
-
+    const loadImage = (src: string): Promise<HTMLImageElement> => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = src;
+        });
+    }
 
     useEffect(() => {
-        let img = new Image();
-        img.src = imgURL
-        setImage(img)
+        let img;
+        const fetchImage = async () => {
+            img = await loadImage(imgURL)
+            setImage(img)
+        }
+        fetchImage()
+        .catch(console.error)
+        // let img = new Image();
+        // img.src = imgURL
     }, [])
 
     useEffect(() => {
         function setup() {
+            console.log("image: ", image)
 
             const board = {
                 width: image!.width,
