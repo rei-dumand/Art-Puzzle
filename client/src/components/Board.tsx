@@ -8,9 +8,9 @@ import imgURL from '../img/1964.336 - Paris Street; Rainy Day.jpg'
 
 function Board() {
 
-
     let [tiles, setTiles] = useState<number[] | null>(null);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
+    const [fire, setFire] = useState<boolean>(false);
 
     let tileWidth = useRef<number | null>(null)
     let tileHeight = useRef<number | null>(null)
@@ -54,12 +54,15 @@ function Board() {
             });
 
             rowDiv.current = 10;
-            colDiv.current = Math.round(rowDiv.current! / aspectRatio)
+            colDiv.current = Math.round(rowDiv.current! / aspectRatio);
             let tileCount = rowDiv.current! * colDiv.current!
             console.log(tileCount)
             tileWidth.current = (board.width / rowDiv.current!);
             tileHeight.current = (board.height / colDiv.current!);
+
             setTiles([...Array(tileCount).keys()])
+            setFire(true)
+        
         }
 
 
@@ -70,9 +73,11 @@ function Board() {
         }
     }, [image])
 
-    // useEffect(() => {
-    //     console.log(tiles)
-    // }, [tiles])
+    useEffect(() => {
+        if (fire) {
+            console.log("has fired")
+        }
+    }, [fire])
 
     console.log(tiles)
     // console.log(tileWidth.current)
