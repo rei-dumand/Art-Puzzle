@@ -54,8 +54,10 @@ function Board() {
                 height: board.height,
             });
 
-            rowDiv.current = 10;
-            colDiv.current = Math.round(rowDiv.current! / aspectRatio);
+            
+            let userSetDiv = 10 // This value should be changed by the user using difficulties.
+            rowDiv.current = userSetDiv;
+            colDiv.current = Math.round(userSetDiv / aspectRatio);
             let tileCount = rowDiv.current! * colDiv.current!
 
             console.log(rowDiv)
