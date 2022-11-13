@@ -30,14 +30,12 @@ function Tile(props: any) {
         backgroundSize: `${600}px`,
         backgroundPosition: `${(100 / (rowDiv - 1)) * (tile % rowDiv)}% ${(100 / (rowDiv - 1)) * (Math.floor(tile / rowDiv))}%`,
     };
-    // console.log()
-
+  
     return (
         <>
             <li
                 style={{
                     ...tileStyle,
-                    // backgroundColor: "blue",
                     transform: `translate3d(${tileStyle.translateX}px, ${tileStyle.translateY}px, 0)`,
                     borderRadius: 20
                 }}

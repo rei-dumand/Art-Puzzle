@@ -17,7 +17,8 @@ function Board() {
     let colDiv = useRef<number | null>(null);
     let rowDiv = useRef<number | null>(null);
     let style = useRef<Object | undefined>(undefined);
-    let tileCount = useRef<number | null>(null);
+    // let tileCount = useRef<number | null>(null);
+
 
     // const loadImage = (src: string): Promise<HTMLImageElement> => {
     //     return new Promise((resolve, reject) => {
@@ -54,7 +55,7 @@ function Board() {
 
             rowDiv.current = 10;
             colDiv.current = Math.round(rowDiv.current! / aspectRatio)
-            tileCount.current = rowDiv.current! * colDiv.current!
+            let tileCount = rowDiv.current! * colDiv.current!
 
             tileWidth.current = (board.width / rowDiv.current!);
             tileHeight.current = (board.height / colDiv.current!);
@@ -69,13 +70,23 @@ function Board() {
         }
     }, [image])
 
-    // console.log(tiles)
-    // console.log(tileWidth.current)
-    // console.log(tileHeight.current)
-    // console.log(rowDiv.current)
-    // console.log(colDiv.current)
+    useEffect(() => {
+        console.log(tiles)
+    }, [tiles])
 
-    if (tiles !== null && tileWidth.current !== null && tileHeight.current !== null && rowDiv.current !== null && colDiv.current !== null) {
+    console.log(tiles)
+    console.log(tileWidth.current)
+    console.log(tileHeight.current)
+    console.log(rowDiv.current)
+    console.log(colDiv.current)
+    // console.log(tileCount)
+
+    if (tiles !== null
+        && tileWidth.current !== null
+        && tileHeight.current !== null
+        && rowDiv.current !== null
+        && colDiv.current !== null
+        && style.current !== undefined) {
         return (
             <>
                 <ul style={style.current} className="board">
@@ -92,7 +103,6 @@ function Board() {
                         />
                     ))}
                 </ul>
-                {/* <img src={image!.src} alt="" /> */}
             </>
         )
     }
