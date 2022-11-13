@@ -60,7 +60,7 @@ function Board() {
         }
 
         setup();
-    },[tiles])
+    },[tiles, colDiv, rowDiv, image])
 
     if (tiles !== null && tiles !== undefined && image !== undefined) {
         return (
