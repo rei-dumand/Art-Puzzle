@@ -1,26 +1,30 @@
 {
-    "compilerOptions": {
-      "esModuleInterop": true,
-      "jsx": "react",
-      "module": "esnext",
-      "moduleResolution": "node",
-      "lib": [
-        "dom",
-        "esnext"
-      ],
-      "strict": true,
-      "sourceMap": true,
-      "target": "esnext",
-    },
-    "exclude": [
-      "node_modules",
-      "build",
-      "scripts",
-      "acceptance-tests",
-      "webpack",
-      "jest",
-      "src/setupTests.ts",
-      "src/**/*.test.ts",
-      "src/**/*.test.tsx"
-    ]
-  }
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "jsx": "react",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "strict": true,
+    "sourceMap": true,
+    "target": "esnext",
+  },
+  "include": [
+    // "./src/global.d.ts",
+    "./src"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx"
+  ]
+}
