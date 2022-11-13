@@ -60,24 +60,29 @@ function Board() {
 
     setup();
 
-    return (
-        <>
-            <ul style={style} className="board">
-                {tiles!.map((tile, index: number) => (
-                    <Tile
-                        rowDiv={rowDiv}
-                        colDiv={colDiv}
-                        image={image}
-                        index={index}
-                        tile={tile}
-                        tileWidth={tileWidth}
-                        tileHeight={tileHeight}
-
-                    />
-                ))}
-            </ul>
-        </>
-    )
+    if (tiles !== null) {
+        return (
+            <>
+                <ul style={style} className="board">
+                    {tiles!.map((tile, index: number) => (
+                        <Tile
+                            rowDiv={rowDiv}
+                            colDiv={colDiv}
+                            image={image}
+                            index={index}
+                            tile={tile}
+                            tileWidth={tileWidth}
+                            tileHeight={tileHeight}
+    
+                        />
+                    ))}
+                </ul>
+            </>
+        )
+    }
+    else {
+        return null
+    }
 }
 
 export default Board;
