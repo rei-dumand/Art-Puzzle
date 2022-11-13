@@ -7,7 +7,7 @@ import imgURL from '../img/1964.336 - Paris Street; Rainy Day.jpg'
 
 
 function Board() {
-    
+
     const loadImage = (src: string): Promise<HTMLImageElement> => {
         return new Promise((resolve, reject) => {
             const img = new Image();
@@ -15,17 +15,17 @@ function Board() {
             img.onerror = reject;
             img.src = src;
         })
-        ;
+            ;
     }
-    
+
     let style;
-    let colDiv : number,
-        rowDiv : number, 
-        image : HTMLImageElement, 
-        tileWidth : number, 
-        tileHeight : number;
-    
-    
+    let colDiv: number,
+        rowDiv: number,
+        image: HTMLImageElement,
+        tileWidth: number,
+        tileHeight: number;
+
+
     const [tiles, setTiles] = useState<number[] | null>(null);
 
     async function setup() {
@@ -60,24 +60,22 @@ function Board() {
 
     setup();
 
-    if (tiles !== null) {
+    if (tiles !== null && tiles !== undefined) {
         return (
-            <>
-                <ul style={style} className="board">
-                    {tiles!.map((tile, index: number) => (
-                        <Tile
-                            rowDiv={rowDiv}
-                            colDiv={colDiv}
-                            image={image}
-                            index={index}
-                            tile={tile}
-                            tileWidth={tileWidth}
-                            tileHeight={tileHeight}
-    
-                        />
-                    ))}
-                </ul>
-            </>
+            <ul style={style} className="board">
+                {tiles!.map((tile, index: number) => (
+                    <Tile
+                        rowDiv={rowDiv}
+                        colDiv={colDiv}
+                        image={image}
+                        index={index}
+                        tile={tile}
+                        tileWidth={tileWidth}
+                        tileHeight={tileHeight}
+
+                    />
+                ))}
+            </ul>
         )
     }
     else {
