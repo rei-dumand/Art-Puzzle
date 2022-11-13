@@ -18,41 +18,39 @@ function Board() {
             ;
     }
 
-    let style;
-    let colDiv: number,
-        rowDiv: number,
-        image: HTMLImageElement,
-        tileWidth: number,
-        tileHeight: number;
-
-
     const [tiles, setTiles] = useState<number[] | null>(null);
+    const [image, setImage] = useState<HTMLImageElement | null>(null);
+    const [tileWidth, setTileWidth] = useState<number | null>(null);
+    const [tileHeight, setTileHeight] = useState<number | null>(null);
+    const [colDiv, setColDiv] = useState<number | null>(null);
+    const [rowDiv, setRowDiv] = useState<number | null>(null);
+    const [style, setStyle] = useState<Object | undefined>(undefined);
 
     async function setup() {
-        const image: HTMLImageElement = await loadImage(imgURL).then(image => image);
-        image.src = imgURL
+        setImage(await loadImage(imgURL).then(image => image));
+        image!.src = imgURL
 
         const board = {
-            width: image.width,
-            height: image.height
+            width: image!.width,
+            height: image!.height
         }
 
         const aspectRatio = board.width / board.height;
 
         console.log(aspectRatio)
 
-        style = {
+        setStyle({
             width: board.width,
             height: board.height,
-        };
+        });
 
-        rowDiv = 30
-        colDiv = Math.round(rowDiv / aspectRatio)
-        const tileCount = rowDiv * colDiv
+        setRowDiv(30)
+        setColDiv(Math.round(rowDiv! / aspectRatio))
+        const tileCount = rowDiv! * colDiv!
         console.log(tileCount)
 
-        tileWidth = board.width / rowDiv;
-        tileHeight = board.height / colDiv;
+        setTileWidth(board.width / rowDiv!);
+        setTileHeight(board.height / colDiv!);
         // const pieceHeight = Math.round(board.height / 10);
 
         setTiles([...Array(tileCount).keys()]);
@@ -60,7 +58,7 @@ function Board() {
 
     setup();
 
-    if (tiles !== null && tiles !== undefined) {
+    if (tiles !== null && tiles !== undefined && image !== undefined) {
         return (
             <ul style={style} className="board">
                 {tiles!.map((tile, index: number) => (
