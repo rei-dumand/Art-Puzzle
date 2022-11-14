@@ -115,19 +115,19 @@ function Board() {
       }
 
 
-    function hasWon(tiles : number[]) {
-        if (tiles) {
-            for (let i = 0; i < tiles.length; i++) {
-                if (i !== tiles[i]) return
-            }
-            return console.log("nice one") // Plug a request to save this instance of game as a success
-
-        }
-    }
+      
+      useEffect(() => {
+        function hasWon(tiles : number[]) {
+            if (tiles) {
+                for (let i = 0; i < tiles.length; i++) {
+                    if (i !== tiles[i]) return
+                }
+                return console.log("nice one") // Plug a request to save this instance of game as a success
     
-    useEffect(() => {
+            }
+        }
         if (tiles) hasWon(tiles)
-    }, [tiles, hasWon])
+    }, [tiles])
 
     if (tiles !== null
         && tileWidth.current !== null
