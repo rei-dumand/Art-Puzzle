@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { start } from 'repl';
 
 import './Tile.css';
 
 function Tile(props: any) {
-    const {
+    let {
         board,
         rowDiv,
         colDiv,
@@ -15,7 +15,7 @@ function Tile(props: any) {
         image,
         handleTileClick,
         activeTileID,
-        setActiveTileID,
+        // setActiveTileID,
         startTileID
     } = props;
 
@@ -52,10 +52,12 @@ function Tile(props: any) {
         <>
             <li
                 id={index}
-                onClick={(e)=> {
+                onClick={(e) => {
                     if (startTileID !== tile) {
+                        activeTileID.current = tile
                         handleTileClick(e);
-                        !activeTileID ? setActiveTileID(tile) : setActiveTileID(null) 
+                        // console.log(activeTileID.current)
+                        // !activeTileID ? activeTileID.current = tile : activeTileID.current = null
                     }
                 }}
                 style={{
@@ -65,20 +67,35 @@ function Tile(props: any) {
                     color: "white"
                 }}
                 className={(() => {
-                    console.log(startTileID, " && " , tile)
+                    // console.log(startTileID, " && " , tile)
                     if (startTileID === tile) {
                         return "tile tile-start"
                     }
-                    if (activeTileID === tile) {
+                    if (activeTileID.current === tile) {
                         return "tile tile-selected"
                     } else {
                         return "tile"
-                    }})()}
+                    }
+                })()}
             >
-                {tile}
-                <br></br>
-                index: {index}
+                tile: {tile} <br></br> index: {index}
             </li>
+
+            {/* {(() => {
+                if (startTileID === tile) {
+                    return (
+                        <div
+                            style={{
+                                width: `calc(100% / ${rowDiv})`,
+                                height: `calc(100% / ${colDiv})`,
+                                position: 'absolute',
+                                transform: `translate3d(${tileStyle.translateX}px, ${tileStyle.translateY}px, 0)`,
+                            }}
+                            className="tile-start"
+                        ></div>
+                    )
+                }
+            })()} */}
         </>
     );
 }

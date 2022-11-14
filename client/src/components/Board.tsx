@@ -26,7 +26,7 @@ function Board() {
 
     const [sourceTile, setSourceTile] = useState<number | null>(null)
 
-    const [activeTileID, setActiveTileID] = useState<number | null>(null);
+    let activeTileID = useRef<number | null>(null);
 
     function loadImage(src: string): Promise<HTMLImageElement> {
         return new Promise((resolve, reject) => {
@@ -40,7 +40,6 @@ function Board() {
     function shuffle(arr: number[]) {
         const index = Math.floor(Math.random() * arr.length)
         startTileID.current = index;
-        console.log(index)
         arr.splice(index, 1)
         const shuffledArr = [
             ...arr.sort(() => Math.random() - 0.5),
@@ -73,7 +72,7 @@ function Board() {
                 height: board.current.height,
             });
 
-            let userSetDiv = 10 // This value should be changed by the user using difficulties.
+            let userSetDiv = 3 // This value should be changed by the user using difficulties.
             rowDiv.current = userSetDiv;
             colDiv.current = Math.round(userSetDiv / aspectRatio);
 
@@ -92,11 +91,15 @@ function Board() {
 
 
     function handleTileClick(e: any) {
+        const tileClickIndex = e.target.id;
         if (sourceTile === null) {
-            setSourceTile(e.target.id)
+            setSourceTile(tileClickIndex)
         } else {
-            swapTiles(e.target.id)  
+            swapTiles(tileClickIndex)  
             setSourceTile(null)
+            if (activeTileID.current !== null) {
+                activeTileID.current = null
+            }
         }
     }
 
@@ -110,6 +113,21 @@ function Board() {
         [tilesResult[src], tilesResult[dest]] = [tilesResult[dest], tilesResult[src]];
         return tilesResult;
       }
+
+
+    function hasWon(tiles : number[]) {
+        if (tiles) {
+            for (let i = 0; i < tiles.length; i++) {
+                if (i !== tiles[i]) return
+            }
+            return console.log("nice one") // Plug a request to save this instance of game as a success
+
+        }
+    }
+    
+    useEffect(() => {
+        if (tiles) hasWon(tiles)
+    }, [tiles, hasWon])
 
     if (tiles !== null
         && tileWidth.current !== null
@@ -134,11 +152,10 @@ function Board() {
                             tileHeight={tileHeight.current}
                             handleTileClick={handleTileClick}
                             activeTileID={activeTileID}
-                            setActiveTileID={setActiveTileID}
                             startTileID={startTileID.current}
                         />
                     ))}
-                </ul>
+                </ul>                
             </>
         )
     }
