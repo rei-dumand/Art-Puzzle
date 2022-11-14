@@ -3,7 +3,21 @@ import React from 'react';
 import './Tile.css';
 
 function Tile(props: any) {
-    const { rowDiv, colDiv, tile, index, tileWidth, tileHeight, image } = props;
+    let {
+        board,
+        rowDiv,
+        colDiv,
+        tile,
+        index,
+        tileWidth,
+        tileHeight,
+        image,
+        handleTileClick,
+        activeTileID,
+        startTileID
+    } = props;
+
+
 
     function getMatrixPosition(index: number) {
         return {
@@ -21,29 +35,65 @@ function Tile(props: any) {
     const { row, col } = getMatrixPosition(index);
 
     const visualPos = getVisualPosition(row, col, tileWidth, tileHeight);
+
     const tileStyle = {
         width: `calc(100% / ${rowDiv})`,
         height: `calc(100% / ${colDiv})`,
         translateX: visualPos.x,
         translateY: visualPos.y,
         backgroundImage: `url(${image.src})`,
-        backgroundSize: `${600}px`,
-        backgroundPosition: `${(100 / (rowDiv - 1)) * (tile % rowDiv)}% ${(100 / (rowDiv - 1)) * (Math.floor(tile / rowDiv))}%`,
+        backgroundSize: `${board.current.width}px ${board.current.height}px`,
+        backgroundPosition: `${(100 / (rowDiv - 1)) * (tile % rowDiv)}% ${(100 / (colDiv - 1)) * (Math.floor(tile / rowDiv))}%`,
     };
-  
+
     return (
         <>
             <li
+                id={index}
+                onClick={(e) => {
+                    if (startTileID !== tile) {
+                        activeTileID.current = tile
+                        handleTileClick(e);
+                        // console.log(activeTileID.current)
+                        // !activeTileID ? activeTileID.current = tile : activeTileID.current = null
+                    }
+                }}
                 style={{
                     ...tileStyle,
                     transform: `translate3d(${tileStyle.translateX}px, ${tileStyle.translateY}px, 0)`,
-                    borderRadius: 20
+                    // borderRadius: 20,
+                    color: "white"
                 }}
-                className="tile"
+                className={(() => {
+                    // console.log(startTileID, " && " , tile)
+                    if (startTileID === tile) {
+                        return "tile tile-start"
+                    }
+                    if (activeTileID.current === tile) {
+                        return "tile tile-selected"
+                    } else {
+                        return "tile"
+                    }
+                })()}
             >
-                {/* {!imgUrl && `${tile + 1}`} */}
+                tile: {tile} <br></br> index: {index}
             </li>
-            {/* <>Hello</> */}
+
+            {/* {(() => {
+                if (startTileID === tile) {
+                    return (
+                        <div
+                            style={{
+                                width: `calc(100% / ${rowDiv})`,
+                                height: `calc(100% / ${colDiv})`,
+                                position: 'absolute',
+                                transform: `translate3d(${tileStyle.translateX}px, ${tileStyle.translateY}px, 0)`,
+                            }}
+                            className="tile-start"
+                        ></div>
+                    )
+                }
+            })()} */}
         </>
     );
 }
