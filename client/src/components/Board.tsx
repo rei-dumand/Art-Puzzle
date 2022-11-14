@@ -8,26 +8,37 @@ import imgURL from '../img/1964.336 - Paris Street; Rainy Day.jpg'
 
 function Board() {
 
+    interface Board {
+        width: number
+        height: number
+    }
+
     let [tiles, setTiles] = useState<number[] | null>(null);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
-    // const [fire, setFire] = useState<boolean>(false);
 
     let tileWidth = useRef<number | null>(null)
     let tileHeight = useRef<number | null>(null)
     let colDiv = useRef<number | null>(null);
     let rowDiv = useRef<number | null>(null);
+    let board = useRef<Board | null>(null);
     let style = useRef<Object | undefined>(undefined);
-    
-    // let tileCount = useRef<number | null>(null);
 
-
-    const loadImage = (src: string): Promise<HTMLImageElement> => {
+    function loadImage(src: string): Promise<HTMLImageElement> {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = () => resolve(img);
             img.onerror = reject;
             img.src = src;
         });
+    }
+
+    function shuffle(arr : number[]) {
+
+        const shuffledArr = [
+            ...arr.sort(() => Math.random() - 0.5),
+        ];
+        console.log(shuffledArr)
+        return shuffledArr
     }
 
     useEffect(() => {
@@ -37,43 +48,32 @@ function Board() {
             setImage(img)
         }
         fetchImage()
-        .catch(console.error)
+            .catch(console.error)
     }, [])
 
     useEffect(() => {
         function setup() {
-            // console.log("image: ", image)
-
-            const board = {
+            board.current = {
                 width: image!.width,
                 height: image!.height
             }
-            // console.log(board)
 
-            const aspectRatio = board.width / board.height;
+            const aspectRatio = board.current.width / board.current.height;
 
             style.current = ({
-                width: board.width,
-                height: board.height,
+                width: board.current.width,
+                height: board.current.height,
             });
 
-            // console.log("aspect ratio: ",aspectRatio)
             let userSetDiv = 10 // This value should be changed by the user using difficulties.
             rowDiv.current = userSetDiv;
             colDiv.current = Math.round(userSetDiv / aspectRatio);
 
-
-
             let tileCount = rowDiv.current! * colDiv.current!
+            tileWidth.current = (board.current.width / rowDiv.current!);
+            tileHeight.current = (board.current.height / colDiv.current!);
 
-            // console.log(rowDiv)
-            // console.log(colDiv)
-            tileWidth.current = (board.width / rowDiv.current!);
-            tileHeight.current = (board.height / colDiv.current!);
-
-            setTiles([...Array(tileCount).keys()])
-            // setFire(true)
-        
+            setTiles(shuffle([...Array(tileCount).keys()]))
         }
 
         if (image) {
@@ -82,31 +82,25 @@ function Board() {
         }
     }, [image])
 
-    // useEffect(() => {
-    //     if (fire) {
-    //         console.log(rowDiv)
-    //         console.log(colDiv)
-    //         console.log("has fired")
-    //     }
-    // }, [fire])
+    
+    function handleTileClick(e: any) {
+        console.log(e.target.id)
+    }
 
-    // console.log(tiles)
-    // console.log(tileWidth.current)
-    // console.log(tileHeight.current)
-    // console.log(rowDiv.current)
-    // console.log(colDiv.current)
 
     if (tiles !== null
         && tileWidth.current !== null
         && tileHeight.current !== null
         && rowDiv.current !== null
         && colDiv.current !== null
-        && style.current !== undefined) {
+        && style.current !== undefined
+        && board.current !== undefined) {
         return (
             <>
                 <ul style={style.current} className="board">
                     {tiles!.map((tile, index: number) => (
                         <Tile
+                            board={board}
                             key={index}
                             rowDiv={rowDiv.current}
                             colDiv={colDiv.current}
@@ -115,6 +109,7 @@ function Board() {
                             tile={tile}
                             tileWidth={tileWidth.current}
                             tileHeight={tileHeight.current}
+                            handleTileClick={handleTileClick}
                         />
                     ))}
                 </ul>
