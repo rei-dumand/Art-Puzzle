@@ -22,6 +22,11 @@ function Board() {
     let rowDiv = useRef<number | null>(null);
     let board = useRef<Board | null>(null);
     let style = useRef<Object | undefined>(undefined);
+    let startTileID = useRef<number | null>(null)
+
+    const [sourceTile, setSourceTile] = useState<number | null>(null)
+
+    const [activeTileID, setActiveTileID] = useState<number | null>(null);
 
     function loadImage(src: string): Promise<HTMLImageElement> {
         return new Promise((resolve, reject) => {
@@ -32,12 +37,15 @@ function Board() {
         });
     }
 
-    function shuffle(arr : number[]) {
-
+    function shuffle(arr: number[]) {
+        const index = Math.floor(Math.random() * arr.length)
+        startTileID.current = index;
+        console.log(index)
+        arr.splice(index, 1)
         const shuffledArr = [
             ...arr.sort(() => Math.random() - 0.5),
         ];
-        console.log(shuffledArr)
+        shuffledArr.splice(index, 0, index)
         return shuffledArr
     }
 
@@ -82,11 +90,26 @@ function Board() {
         }
     }, [image])
 
-    
+
     function handleTileClick(e: any) {
-        console.log(e.target.id)
+        if (sourceTile === null) {
+            setSourceTile(e.target.id)
+        } else {
+            swapTiles(e.target.id)  
+            setSourceTile(null)
+        }
     }
 
+    const swapTiles = (tileIndex: number) => {
+        const swappedTiles = swap(tiles!, tileIndex, sourceTile!)
+        setTiles(swappedTiles)
+    }
+
+    function swap(tiles : number[], src : number, dest : number) {
+        const tilesResult = [...tiles];
+        [tilesResult[src], tilesResult[dest]] = [tilesResult[dest], tilesResult[src]];
+        return tilesResult;
+      }
 
     if (tiles !== null
         && tileWidth.current !== null
@@ -110,6 +133,9 @@ function Board() {
                             tileWidth={tileWidth.current}
                             tileHeight={tileHeight.current}
                             handleTileClick={handleTileClick}
+                            activeTileID={activeTileID}
+                            setActiveTileID={setActiveTileID}
+                            startTileID={startTileID.current}
                         />
                     ))}
                 </ul>

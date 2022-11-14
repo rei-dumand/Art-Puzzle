@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { start } from 'repl';
 
 import './Tile.css';
 
@@ -12,8 +13,12 @@ function Tile(props: any) {
         tileWidth,
         tileHeight,
         image,
-        handleTileClick 
+        handleTileClick,
+        activeTileID,
+        setActiveTileID,
+        startTileID
     } = props;
+
 
 
     function getMatrixPosition(index: number) {
@@ -46,19 +51,34 @@ function Tile(props: any) {
     return (
         <>
             <li
-                id={tile}
-                onClick={handleTileClick}
+                id={index}
+                onClick={(e)=> {
+                    if (startTileID !== tile) {
+                        handleTileClick(e);
+                        !activeTileID ? setActiveTileID(tile) : setActiveTileID(null) 
+                    }
+                }}
                 style={{
                     ...tileStyle,
                     transform: `translate3d(${tileStyle.translateX}px, ${tileStyle.translateY}px, 0)`,
                     // borderRadius: 20,
                     color: "white"
                 }}
-                className="tile"
+                className={(() => {
+                    console.log(startTileID, " && " , tile)
+                    if (startTileID === tile) {
+                        return "tile tile-start"
+                    }
+                    if (activeTileID === tile) {
+                        return "tile tile-selected"
+                    } else {
+                        return "tile"
+                    }})()}
             >
                 {tile}
+                <br></br>
+                index: {index}
             </li>
-            {/* <>Hello</> */}
         </>
     );
 }
