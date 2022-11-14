@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { start } from 'repl';
+import React from 'react';
 
 import './Tile.css';
 
@@ -15,7 +14,6 @@ function Tile(props: any) {
         image,
         handleTileClick,
         activeTileID,
-        // setActiveTileID,
         startTileID
     } = props;
 
