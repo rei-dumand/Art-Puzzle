@@ -2,8 +2,9 @@
   for = "/*"
   [headers.values]
      Content-Security-Policy = "
-     default-src 'self' deploy-preview-7--ozzle.netlify.app/ api.artic.edu artic.edu;
+     default-src 'self' deploy-preview-7--ozzle.netlify.app api.artic.edu artic.edu;
      style-src fonts.googleapis.com;
      font-src fonts.gstatic.com;
      img-src artic.edu;
+     connect-src *.amazonaws.com *.bugsnag.com *.firebaseio.com *.giphy.com *.launchdarkly.com *.netlify.com *.segment.io netlify-cocoon.netlify.app netlify-slapp.netlify.app netlilink.netlify.app ws://localhost:3000 wss://*.services.netlify.com";
      "
