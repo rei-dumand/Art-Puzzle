@@ -1,4 +1,9 @@
 [[headers]]
   for = "/*"
   [headers.values]
-     Content-Security-Policy = "default-src 'self' fonts.googleapis.com api.artic.edu;"
+     Content-Security-Policy = "
+     default-src 'self' deploy-preview-7--ozzle.netlify.app/ api.artic.edu artic.edu;
+     style-src fonts.googleapis.com;
+     font-src fonts.gstatic.com;
+     img-src artic.edu;
+     "
