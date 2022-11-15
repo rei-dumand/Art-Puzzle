@@ -70,7 +70,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/explore" element={<Explore artworkData={artworkData}/>} />
+        <Route path="/explore" element={<Explore /*artworkData={artworkData}*//>} />
       </Routes>
     </div>
   );
