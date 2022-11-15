@@ -6,5 +6,5 @@
      style-src fonts.googleapis.com;
      font-src fonts.gstatic.com;
      img-src artic.edu;
-     connect-src *.amazonaws.com *.bugsnag.com *.firebaseio.com *.giphy.com *.launchdarkly.com *.netlify.com *.segment.io netlify-cocoon.netlify.app netlify-slapp.netlify.app netlilink.netlify.app ws://localhost:3000 wss://*.services.netlify.com";
+     connect-src *.amazonaws.com *.bugsnag.com *.firebaseio.com *.giphy.com *.launchdarkly.com *.netlify.com *.segment.io netlify-cocoon.netlify.app netlify-slapp.netlify.app netlilink.netlify.app ws://localhost:3000 wss://*.services.netlify.com;
      "
