@@ -10,7 +10,7 @@ type props = {
 
 function Explore(props : any) {
     const { artworkData } = props;
-    console.log(artworkData)
+    // console.log(artworkData)
 
     return (
         <>

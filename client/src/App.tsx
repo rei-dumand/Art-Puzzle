@@ -48,7 +48,7 @@ function App() {
       async function setupImgGrid() {
           await fetchArtworkMetadata();
           let arrArtworkData: Artwork[] = artworkData.current!;
-          console.log(arrArtworkData)
+          // console.log(arrArtworkData)
           setArrImgID(arrArtworkData.map((item) => item.image_id))
       }
 
