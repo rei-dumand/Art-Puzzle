@@ -1,6 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Proza+Libre:wght@400;700&display=swap');
+
 * {
   margin: unset;
   padding: unset;
+  font-family: 'Proza Libre', sans-serif;
+  color: #2f3e46;
+}
+
+a {
+  color: unset;
+}
+
+button {
+  color: unset;
+  background-color: unset;
+  border: unset;
+  font-size: unset;
+  cursor: pointer;
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
 }
 
 body {

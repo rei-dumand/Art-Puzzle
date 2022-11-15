@@ -5,6 +5,8 @@ import Tile from './Tile'
 
 import imgURL from '../img/1964.336 - Paris Street; Rainy Day.jpg'
 
+import {shuffle} from './Helpers'
+
 
 function Board() {
 
@@ -37,17 +39,6 @@ function Board() {
         });
     }
 
-    function shuffle(arr: number[]) {
-        const index = Math.floor(Math.random() * arr.length)
-        startTileID.current = index;
-        arr.splice(index, 1)
-        const shuffledArr = [
-            ...arr.sort(() => Math.random() - 0.5),
-        ];
-        shuffledArr.splice(index, 0, index)
-        return shuffledArr
-    }
-
     useEffect(() => {
         let img;
         const fetchImage = async () => {
@@ -72,7 +63,7 @@ function Board() {
                 height: board.current.height,
             });
 
-            let userSetDiv = 3 // This value should be changed by the user using difficulties.
+            let userSetDiv = 10 // This value should be changed by the user using difficulties.
             rowDiv.current = userSetDiv;
             colDiv.current = Math.round(userSetDiv / aspectRatio);
 
