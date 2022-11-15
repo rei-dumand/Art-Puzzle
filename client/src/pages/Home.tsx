@@ -1,6 +1,7 @@
-import React, { ChangeEvent } from 'react';
+import React, { useRef, useEffect, useState, ChangeEvent } from 'react';
 import Header from '../components/Header'
 import './Home.css'
+import axios from 'axios';
 import { Artwork } from '../types'
 
 type props = {
@@ -22,7 +23,6 @@ function Home(props: props) {
                                 src={`https://www.artic.edu/iiif/2/${imgID}/full/200,/0/default.jpg`}
                                 onError={(e: ChangeEvent<HTMLImageElement>) => e.target.style.display = 'none'}
                                 key={index}
-                                alt=""
                             ></img>
                         ))
                     } else {
