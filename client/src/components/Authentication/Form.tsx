@@ -62,8 +62,10 @@ export default function BasicTextFields(props: props) {
                 />
                 <TextField
                     id="password"
+                    type="password"
                     label="Your Password"
                     variant="outlined"
+                    
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </Box>

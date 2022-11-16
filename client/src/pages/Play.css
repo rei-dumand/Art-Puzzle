@@ -1,6 +1,15 @@
-#play {
+/* #play {
     height: calc(100vh - 130px);
     display: flex;
     justify-content: center;
     align-items: center;
+} */
+
+#play {
+    height: calc(100vh - 130px);
+    max-height: calc(100vh - 130px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: contain;
 }

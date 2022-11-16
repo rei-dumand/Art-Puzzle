@@ -72,7 +72,7 @@ function Board(props: props) {
                 height: board.current.height,
             });
 
-            let userSetDiv = 5 // This value should be changed by the user using difficulties.
+            let userSetDiv = 4 // This value should be changed by the user using difficulties.
             rowDiv.current = userSetDiv;
             colDiv.current = Math.round(userSetDiv / aspectRatio);
 

@@ -65,7 +65,8 @@ function App() {
     let fetchedOnce = useRef<boolean>(false);
     const [arrImgID, setArrImgID] = useState<string[] | null>(null);
     const [heroImgID, setHeroImgID] = useState<string | null>(null);
-    let heroImg = useRef<HTMLImageElement | null>(null)
+    // let heroImg = useRef<HTMLImageElement | null>(null)
+    let [heroImg, setHeroImg] = useState<HTMLImageElement | null>(null)
 
     async function fetchArtworkMetadata() {
         artworkData.current = await axios
@@ -111,7 +112,8 @@ function App() {
         if (heroImgID) {
             let img = new Image();
             img.src = `https://www.artic.edu/iiif/2/${heroImgID}/full/800,/0/default.jpg`
-            heroImg.current = img;
+            setHeroImg(img)
+            // heroImg.current = img;
         }
     }, [heroImgID])
 
@@ -132,7 +134,7 @@ function App() {
                 <Route path="/" element={<Landing />} />
                 <Route path="/home" element={
                     <Home
-                        heroImg={heroImg.current}
+                        heroImg={heroImg}
                         heroImgID={heroImgID}
                         artworkData={artworkData.current}
                         arrImgID={arrImgID}
