@@ -14,7 +14,7 @@
     },
     "include": [
       "src"
-    ],
+, "axiosconfig.tsx"    ],
     "exclude": [
       "node_modules",
       "build",
