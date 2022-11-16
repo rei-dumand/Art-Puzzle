@@ -72,7 +72,7 @@ function Board(props: props) {
                 height: board.current.height,
             });
 
-            let userSetDiv = 5 // This value should be changed by the user using difficulties.
+            let userSetDiv = 4 // This value should be changed by the user using difficulties.
             rowDiv.current = userSetDiv;
             colDiv.current = Math.round(userSetDiv / aspectRatio);
 
@@ -135,7 +135,7 @@ function Board(props: props) {
         return tilesResult;
     }
 
-    console.log(auth)
+    // console.log(auth)
 
     useEffect(() => {
         function hasWon(tiles: number[]) {
@@ -144,7 +144,7 @@ function Board(props: props) {
                     if (i !== tiles[i]) return
                 }
                 if (auth.currentUser) {
-                    api.post('/endgame', {uId: auth.currentUser.uid, imageID: image})
+                    api.post('/endgame', {"uId": auth.currentUser.uid, "imageID": image, "gridState": tiles})
                 }
                 return console.log("nice one") // Plug a request to save this instance of game as a success
 

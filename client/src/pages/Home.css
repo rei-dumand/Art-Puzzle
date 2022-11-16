@@ -1,6 +1,12 @@
 #home {
     height: calc(100vh - 130px);
+    max-height: calc(100vh - 130px);
     display: flex;
     justify-content: center;
     align-items: center;
+    object-fit: contain;
+}
+
+.selected-image {
+    height: 80%;
 }

@@ -1,5 +1,6 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useEffect } from 'react';
 import Header from '../components/Header'
+import { CircularProgress } from '@mui/material';
 import './Home.css'
 import { useNavigate } from 'react-router-dom';
 // import axios from 'axios';
@@ -15,6 +16,11 @@ type props = {
 function Home(props: props) {
     let { heroImg, heroImgID } = props;
 
+    useEffect(() => {
+      
+    }, [heroImg, heroImgID])
+    
+
     const navigate = useNavigate()
 
     return (
@@ -26,6 +32,7 @@ function Home(props: props) {
                         if (heroImg) {
                             return (
                                 <img
+                                    className='selected-image'
                                     src={heroImg.src}
                                     onClick={() => {
                                         navigate('/play', { state: { imgID: heroImgID } })
@@ -37,7 +44,8 @@ function Home(props: props) {
                             )
                         } else {
                             return (
-                                <h3>Image failed to load</h3>
+                                <CircularProgress color="inherit" />
+                                // <h3>Image failed to load</h3>
                             )
                         }
 
