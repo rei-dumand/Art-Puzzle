@@ -7,7 +7,7 @@ async function seed(knex) {
     // Inserts seed entries
     await knex("users").insert([
         {
-            uid: "192983-AHSBD-7829",
+            uId: "192983-AHSBD-7829",
             username: "DummyAccount",
         },
     ]);

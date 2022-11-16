@@ -32,9 +32,9 @@ export default function BasicTextFields(props: props) {
                 sx={{
                     'width': '100%',
                     'display': 'flex',
-                    'flex-direction': 'column',
-                    'justify-content': 'center',
-                    'align-items': 'center',
+                    'flexDirection': 'column',
+                    'justifyContent': 'center',
+                    'alignItems': 'center',
 
                     '& > :not(style)': { m: 2, width: '100%' },
                 }}
@@ -76,7 +76,7 @@ export default function BasicTextFields(props: props) {
                 sx={{
                     'width': '100%'
                 }}
-            >Sign up with</Button>
+            >Continue with</Button>
         </section>
     );
 }

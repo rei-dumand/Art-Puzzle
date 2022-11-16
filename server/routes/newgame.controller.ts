@@ -2,40 +2,30 @@ import express, { Request, Response } from 'express';
 
 const newGame = require('./newgame.model');
 const {
-    sanitiseUserID,
-    getUserID,
-    getRandomTracksID,
+    verifyUserID,
     createGameInstance,
-    getTrackURL,
     insertResultRow
 } = newGame
 
 const router = express.Router();
 
 router.post('/', async (req: Request, res: Response) => {
-    const reqName = req.body.username
+    let {uId, imageID, gridState} = req.body
 
-    if (reqName === undefined) {
-        return res.status(400).send({error: 'Expected a request body containing: { "username": "<username>" }'})
-    };
-    
-    const userObj = await getUserID(sanitiseUserID(reqName));
-   
-    if (!userObj) {
-        return res.status(404).send({error: 'Account not found. This is a CC28 members only club. Sorry not sorry :).'})
-    };
-        
-        const userID = userObj.id
-    const timestamp = Date.now();
-    const randomTrackID = await getRandomTracksID(5);
-    const randomTrackIDJSON = JSON.stringify(randomTrackID);
+    if (imageID === undefined || uId === undefined || gridState === undefined) {
+        return res.status(400).send({error: 'Expected a request body containing: { "uID": "<uId>", "imageID":"<imageID>", "gridState":"<gridState>" }'})
+    }
 
-    const gameID = String(await createGameInstance(userID, randomTrackIDJSON, 0, 5, timestamp));
-    const songInitialRound = await getTrackURL(randomTrackID[0]);
+    const userIDdb = await verifyUserID(uId);
+ 
+    if (!userIDdb) {
+        return res.status(400).send({error: `user "${uId}" does not exist`})
+    }
 
-    await insertResultRow(gameID, userID, 0, 5)
+    gridState = JSON.stringify(gridState)
+    const gameID = await createGameInstance(uId, imageID, gridState)
 
-    return res.status(200).send({ gameID: gameID, songURL: songInitialRound });
+    return res.status(200).send(`${gameID}`)
 })
 
 export default router;

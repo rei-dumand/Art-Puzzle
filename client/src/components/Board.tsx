@@ -1,14 +1,19 @@
 import './Board.css';
 import React, { useState, useEffect, useRef } from 'react';
+import api from '../services/axiosconfig'
 
 import Tile from './Tile'
 
-import imgURL from '../img/1964.336 - Paris Street; Rainy Day.jpg'
+import { shuffle } from './Helpers'
+import { auth } from '../firebase-config'
 
-import {shuffle} from './Helpers'
+type props = {
+    imgURL: string;
+    imgID: string | null;
+}
 
-
-function Board() {
+function Board(props: props) {
+    const { imgURL, imgID } = props
 
     interface Board {
         width: number
@@ -39,16 +44,20 @@ function Board() {
         });
     }
 
+    // Image should always be defined on load.
     useEffect(() => {
         let img;
         const fetchImage = async () => {
             img = await loadImage(imgURL)
+            console.log(img)
             setImage(img)
         }
         fetchImage()
             .catch(console.error)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    // Creates Initial Puzzle Grid
     useEffect(() => {
         function setup() {
             board.current = {
@@ -63,7 +72,7 @@ function Board() {
                 height: board.current.height,
             });
 
-            let userSetDiv = 10 // This value should be changed by the user using difficulties.
+            let userSetDiv = 5 // This value should be changed by the user using difficulties.
             rowDiv.current = userSetDiv;
             colDiv.current = Math.round(userSetDiv / aspectRatio);
 
@@ -71,14 +80,35 @@ function Board() {
             tileWidth.current = (board.current.width / rowDiv.current!);
             tileHeight.current = (board.current.height / colDiv.current!);
 
-            setTiles(shuffle([...Array(tileCount).keys()]))
+            setTiles(shuffle([...Array(tileCount).keys()], startTileID))
         }
 
         if (image) {
-            console.log("image has loaded: ", image)
+            // console.log("image has loaded: ", image)
             setup();
         }
     }, [image])
+
+    
+    useEffect(() => {
+        const createGameInstance = () => {
+            if (auth.currentUser && imgURL) {
+                console.log(auth.currentUser.uid)
+                console.log(imgID)
+                api.post('/newgame', {"uId": auth.currentUser.uid, "imageID": imgID, "gridState": tiles})
+                .then(function (response) {
+                    console.log(response)
+                    return response.data
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    return null
+                });
+            }
+        }
+       createGameInstance();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeTileID,])
 
 
     function handleTileClick(e: any) {
@@ -86,7 +116,7 @@ function Board() {
         if (sourceTile === null) {
             setSourceTile(tileClickIndex)
         } else {
-            swapTiles(tileClickIndex)  
+            swapTiles(tileClickIndex)
             setSourceTile(null)
             if (activeTileID.current !== null) {
                 activeTileID.current = null
@@ -99,26 +129,29 @@ function Board() {
         setTiles(swappedTiles)
     }
 
-    function swap(tiles : number[], src : number, dest : number) {
+    function swap(tiles: number[], src: number, dest: number) {
         const tilesResult = [...tiles];
         [tilesResult[src], tilesResult[dest]] = [tilesResult[dest], tilesResult[src]];
         return tilesResult;
-      }
+    }
 
+    console.log(auth)
 
-      
-      useEffect(() => {
-        function hasWon(tiles : number[]) {
+    useEffect(() => {
+        function hasWon(tiles: number[]) {
             if (tiles) {
                 for (let i = 0; i < tiles.length; i++) {
                     if (i !== tiles[i]) return
                 }
+                if (auth.currentUser) {
+                    api.post('/endgame', {uId: auth.currentUser.uid, imageID: image})
+                }
                 return console.log("nice one") // Plug a request to save this instance of game as a success
-    
+
             }
         }
         if (tiles) hasWon(tiles)
-    }, [tiles])
+    }, [tiles, image])
 
     if (tiles !== null
         && tileWidth.current !== null
@@ -146,7 +179,7 @@ function Board() {
                             startTileID={startTileID.current}
                         />
                     ))}
-                </ul>                
+                </ul>
             </>
         )
     }

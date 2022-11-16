@@ -7,9 +7,9 @@ async function up(knex) {
             .increments("id")
             .primary();
         table
-            .string('user_uid', 255)
+            .string('user_uId', 255)
             .notNullable()
-            .references('uid')
+            .references('uId')
             .inTable('users')
             .onDelete('cascade');
         table
