@@ -1,13 +1,4 @@
-import { json } from 'stream/consumers';
 import db from '../db/knex';
-
-interface Track {
-    id: number;
-    song: string;
-    artist: string;
-    album: string;
-    url: string;
-}
 
 module.exports = {
 

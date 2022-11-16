@@ -8,6 +8,7 @@ import newGame from './routes/newgame.controller';
 // import nextRound from './routes/nextround.controller';
 // import result from './routes/result.controller';
 import newUser from './routes/newuser.controller';
+import endGame from './routes/endgame.controller';
 
 const setupServer : Function = () => {
     const app: Express = express();
@@ -22,6 +23,7 @@ const setupServer : Function = () => {
     // app.use('/nextround', nextRound);
     // app.use('/result', result)
     app.use('/newuser', newUser);
+    app.use('/endgame', endGame)
 
     return app;
 }
