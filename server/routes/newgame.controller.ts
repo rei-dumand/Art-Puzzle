@@ -13,13 +13,13 @@ router.post('/', async (req: Request, res: Response) => {
     let {uId, imageID, gridState} = req.body
 
     if (imageID === undefined || uId === undefined || gridState === undefined) {
-        return res.status(400).send({error: 'Expected a request body containing: { "uID": "<uId>", "imageID":"<imageID>" }'})
+        return res.status(400).send({error: 'Expected a request body containing: { "uID": "<uId>", "imageID":"<imageID>", "gridState":"<gridState>" }'})
     }
 
     const userIDdb = await verifyUserID(uId);
  
     if (!userIDdb) {
-        return res.status(400).send({error: 'This user does not exist'})
+        return res.status(400).send({error: `user "${uId}" does not exist`})
     }
 
     gridState = JSON.stringify(gridState)

@@ -1,16 +1,19 @@
 import './Board.css';
 import React, { useState, useEffect, useRef } from 'react';
+import api from '../services/axiosconfig'
 
 import Tile from './Tile'
 
 import { shuffle } from './Helpers'
+import { auth } from '../firebase-config'
 
 type props = {
-    imgURL : string;
+    imgURL: string;
+    imgID: string | null;
 }
 
-function Board(props : props) {
-    const {imgURL} = props
+function Board(props: props) {
+    const { imgURL, imgID } = props
 
     interface Board {
         width: number
@@ -41,6 +44,7 @@ function Board(props : props) {
         });
     }
 
+    // Image should always be defined on load.
     useEffect(() => {
         let img;
         const fetchImage = async () => {
@@ -52,6 +56,7 @@ function Board(props : props) {
             .catch(console.error)
     }, [])
 
+    // Creates Initial Puzzle Grid
     useEffect(() => {
         function setup() {
             board.current = {
@@ -83,6 +88,26 @@ function Board(props : props) {
         }
     }, [image])
 
+    const createGameInstance = () => {
+        if (auth.currentUser && imgURL) {
+            console.log(auth.currentUser.uid)
+            console.log(imgID)
+            api.post('/newgame', {"uId": auth.currentUser.uid, "imageID": imgID, "gridState": tiles})
+            .then(function (response) {
+                console.log(response)
+                return response.data
+            })
+            .catch(function (error) {
+                console.error(error);
+                return null
+            });
+        }
+    }
+
+    useEffect(() => {
+       createGameInstance();
+    }, [activeTileID, createGameInstance])
+
 
     function handleTileClick(e: any) {
         const tileClickIndex = e.target.id;
@@ -108,11 +133,16 @@ function Board(props : props) {
         return tilesResult;
     }
 
+    console.log(auth)
+
     useEffect(() => {
         function hasWon(tiles: number[]) {
             if (tiles) {
                 for (let i = 0; i < tiles.length; i++) {
                     if (i !== tiles[i]) return
+                }
+                if (auth.currentUser) {
+                    api.post('/endgame', {uId: auth.currentUser.uid, imageID: image})
                 }
                 return console.log("nice one") // Plug a request to save this instance of game as a success
 

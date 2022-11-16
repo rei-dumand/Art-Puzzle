@@ -4,6 +4,8 @@ import './Explore.css';
 import Board from '../components/Board'
 import { useLocation } from 'react-router-dom';
 import './Play.css';
+import { auth } from '../firebase-config'
+import api from '../services/axiosconfig'
 
 function Play() {
 
@@ -18,6 +20,7 @@ function Play() {
         }
     }, [imgID])
 
+
     return (
         <main className='main'>
             <Header />
@@ -27,6 +30,7 @@ function Play() {
                         return (
                             <Board
                                 imgURL={imgURL}
+                                imgID={imgID.current}
                             />
                         )
                     }

@@ -10,11 +10,11 @@ const router = express_1.default.Router();
 router.post('/', async (req, res) => {
     let { uId, imageID, gridState } = req.body;
     if (imageID === undefined || uId === undefined || gridState === undefined) {
-        return res.status(400).send({ error: 'Expected a request body containing: { "uID": "<uId>", "imageID":"<imageID>" }' });
+        return res.status(400).send({ error: 'Expected a request body containing: { "uID": "<uId>", "imageID":"<imageID>", "gridState":"<gridState>" }' });
     }
     const userIDdb = await verifyUserID(uId);
     if (!userIDdb) {
-        return res.status(400).send({ error: 'This user does not exist' });
+        return res.status(400).send({ error: `user "${uId}" does not exist` });
     }
     gridState = JSON.stringify(gridState);
     const gameID = await createGameInstance(uId, imageID, gridState);

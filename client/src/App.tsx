@@ -29,18 +29,36 @@ function App() {
 
     const navigate = useNavigate();
 
-    const handleForm = (id: String) => {
-        console.log(id)
+    const handleForm = async (id: String) => {
         if (id === "login") {
-            logInWithEmailAndPassword(email, password)
+            await logInWithEmailAndPassword(email, password)
             navigate("/home")
+            if(auth.currentUser) {
+                console.log(auth.currentUser.uid)
+            }
         } else {
-            registerWithEmailAndPassword(username, email, password)
+            await registerWithEmailAndPassword(username, email, password)
             navigate("/home")
-
+            addUserToDB()
         }
     }
     // console.log(auth);
+
+    const addUserToDB = () => {
+        if (auth.currentUser) {
+            console.log(auth.currentUser.uid)
+            console.log(username)
+            api.post('/newuser', {"uId": auth.currentUser.uid, "username": username})
+            .then(function (response) {
+                console.log(response)
+                return response.data
+            })
+            .catch(function (error) {
+                console.error(error);
+                return null
+            });
+        }
+    }
 
 
     let artworkData = useRef<Artwork[] | null>(null);
@@ -98,14 +116,14 @@ function App() {
     }, [heroImgID])
 
     // Test endpoint to remove
-    useEffect(() => {
-        api
-            .get('/example/')
-            .then((res) => {
-                console.log(res)
-            })
-        console.log(artworkData)
-    }, [artworkData])
+    // useEffect(() => {
+    //     api
+    //         .get('/example/')
+    //         .then((res) => {
+    //             console.log(res)
+    //         })
+    //     console.log(artworkData)
+    // }, [artworkData])
 
 
     return (
