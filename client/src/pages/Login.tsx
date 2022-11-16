@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Landing.css';
-import Form from '../components/Authentication/Form';
 import './Login.css'
 
 function Login(props: any) {

@@ -5,8 +5,6 @@ import TextField from '@mui/material/TextField';
 import GoogleIcon from "@mui/icons-material/Google";
 import SubmitButton from './Button';
 import {
-    auth,
-    registerWithEmailAndPassword,
     signInWithGoogle,
 } from "../../firebase-config";
 import './Form.css'
