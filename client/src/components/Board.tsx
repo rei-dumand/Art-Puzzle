@@ -54,7 +54,8 @@ function Board(props: props) {
         }
         fetchImage()
             .catch(console.error)
-    }, [imgURL])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     // Creates Initial Puzzle Grid
     useEffect(() => {
@@ -106,7 +107,8 @@ function Board(props: props) {
             }
         }
        createGameInstance();
-    }, [activeTileID])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeTileID,])
 
 
     function handleTileClick(e: any) {
