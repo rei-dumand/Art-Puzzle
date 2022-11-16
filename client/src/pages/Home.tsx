@@ -36,8 +36,9 @@ function Home(props: props) {
                                 </img>
                             )
                         } else {
-                            return
-                            <h3>Image failed to load</h3>
+                            return (
+                                <h3>Image failed to load</h3>
+                            )
                         }
 
                     })()}

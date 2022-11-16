@@ -10,7 +10,7 @@ type props = {
 }
 
 function Explore(props: props) {
-    const { artworkData, arrImgID } = props;
+    const { arrImgID } = props;
     // console.log(artworkData)
 
     return (

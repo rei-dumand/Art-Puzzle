@@ -54,7 +54,7 @@ function Board(props: props) {
         }
         fetchImage()
             .catch(console.error)
-    }, [])
+    }, [imgURL])
 
     // Creates Initial Puzzle Grid
     useEffect(() => {
@@ -88,25 +88,25 @@ function Board(props: props) {
         }
     }, [image])
 
-    const createGameInstance = () => {
-        if (auth.currentUser && imgURL) {
-            console.log(auth.currentUser.uid)
-            console.log(imgID)
-            api.post('/newgame', {"uId": auth.currentUser.uid, "imageID": imgID, "gridState": tiles})
-            .then(function (response) {
-                console.log(response)
-                return response.data
-            })
-            .catch(function (error) {
-                console.error(error);
-                return null
-            });
-        }
-    }
-
+    
     useEffect(() => {
+        const createGameInstance = () => {
+            if (auth.currentUser && imgURL) {
+                console.log(auth.currentUser.uid)
+                console.log(imgID)
+                api.post('/newgame', {"uId": auth.currentUser.uid, "imageID": imgID, "gridState": tiles})
+                .then(function (response) {
+                    console.log(response)
+                    return response.data
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    return null
+                });
+            }
+        }
        createGameInstance();
-    }, [activeTileID, createGameInstance])
+    }, [activeTileID])
 
 
     function handleTileClick(e: any) {
@@ -149,7 +149,7 @@ function Board(props: props) {
             }
         }
         if (tiles) hasWon(tiles)
-    }, [tiles])
+    }, [tiles, image])
 
     if (tiles !== null
         && tileWidth.current !== null
