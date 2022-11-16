@@ -1,9 +1,9 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import './Profile.css';
-import {
-    auth,
-} from "../../src/firebase-config";
+// import {
+//     auth,
+// } from "../../src/firebase-config";
 
 type props = {
     username: string
