@@ -1,8 +1,15 @@
 import './App.css';
 import React, { useRef, useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import api from './services/axiosconfig'
+
+import Form from './components/Authentication/Form';
+import {
+    auth,
+    registerWithEmailAndPassword,
+    logInWithEmailAndPassword,
+} from "./firebase-config";
 
 import Home from './pages/Home'
 import Profile from './pages/Profile'
@@ -10,15 +17,33 @@ import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Explore from './pages/Explore'
+import Play from './pages/Play'
 
 import { Artwork } from './types';
 
 function App() {
 
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
+    
+    const navigate = useNavigate();
+
+    const handleForm = (id : String) => {
+        console.log(id)
+        if (id === "login") {
+            logInWithEmailAndPassword(email, password)
+            navigate("/home")
+        } else {
+            registerWithEmailAndPassword(username, email, password)
+            navigate("/home")
+
+        }
+    }
+    
+    console.log(auth);
     let artworkData = useRef<Artwork[] | null>(null);
-
     let fetchedOnce = useRef<boolean>(false);
-
     const [arrImgID, setArrImgID] = useState<string[] | null>(null);
 
     async function fetchArtworkMetadata() {
@@ -59,6 +84,7 @@ function App() {
 
     }, [fetchedOnce])
 
+    // Test endpoint to remove
     useEffect(() => {
         api
             .get('/example/')
@@ -74,8 +100,25 @@ function App() {
                 <Route path="/" element={<Landing />} />
                 <Route path="/home" element={<Home artworkData={artworkData.current} arrImgID={arrImgID} />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
+                <Route path="/play" element={<Play />} />
+                <Route path="/login" element={<Login element={
+                    <Form
+                        title="Login"
+                        setUsername={setUsername}
+                        setEmail={setEmail}
+                        setPassword={setPassword}
+                        handleForm={() => handleForm("login")}
+                    />
+                } />} />
+                <Route path="/signup" element={<Signup element={
+                    <Form
+                        title="Signup"
+                        setUsername={setUsername}
+                        setEmail={setEmail}
+                        setPassword={setPassword}
+                        handleForm={() => handleForm("signup")}
+                    />
+                } />} />
                 <Route path="/explore" element={<Explore /*artworkData={artworkData}*/ />} />
             </Routes>
         </div>
