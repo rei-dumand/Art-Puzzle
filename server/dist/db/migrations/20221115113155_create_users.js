@@ -7,7 +7,7 @@ async function up(knex) {
             .increments('id')
             .primary();
         table
-            .string('uid', 255)
+            .string('uId', 255)
             .unique();
         // .notNullable();
         table.

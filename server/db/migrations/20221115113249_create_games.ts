@@ -6,9 +6,9 @@ export async function up(knex: Knex): Promise<void> {
             .increments("id")
             .primary();
         table
-            .string('user_uid', 255)
+            .string('user_uId', 255)
             .notNullable()
-            .references('uid')
+            .references('uId')
             .inTable('users')
             .onDelete('cascade');
         table
