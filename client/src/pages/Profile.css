@@ -2,3 +2,18 @@
     height: calc(100% - 130px);
     width: 100%;
 }
+
+#profile__welcome {
+    margin: 3rem;
+    font-size: 2rem;
+}
+
+.profile__images-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20rem;
+    margin-top: 6rem;
+    margin-bottom: 15rem;
+}

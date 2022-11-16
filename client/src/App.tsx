@@ -33,7 +33,7 @@ function App() {
         if (id === "login") {
             await logInWithEmailAndPassword(email, password)
             navigate("/home")
-            if(auth.currentUser) {
+            if (auth.currentUser) {
                 console.log(auth.currentUser.uid)
             }
         } else {
@@ -48,15 +48,15 @@ function App() {
         if (auth.currentUser) {
             console.log(auth.currentUser.uid)
             console.log(username)
-            api.post('/newuser', {"uId": auth.currentUser.uid, "username": username})
-            .then(function (response) {
-                console.log(response)
-                return response.data
-            })
-            .catch(function (error) {
-                console.error(error);
-                return null
-            });
+            api.post('/newuser', { "uId": auth.currentUser.uid, "username": username })
+                .then(function (response) {
+                    console.log(response)
+                    return response.data
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    return null
+                });
         }
     }
 
@@ -146,7 +146,12 @@ function App() {
                         arrImgID={arrImgID}
                     />
                 } />
-                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile" element={
+                    <Profile
+                        username={username}
+                        arrImgID={arrImgID}
+                    />
+                } />
                 <Route path="/play" element={<Play />} />
                 <Route path="/login" element={<Login element={
                     <Form
