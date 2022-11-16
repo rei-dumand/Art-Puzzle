@@ -1,25 +1,39 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Header from '../components/Header';
 import './Explore.css';
-// import { Artwork } from '../types'
-
-
-// type props = {
-//     artworkData : Artwork[] | null;
-// }
+import Board from '../components/Board'
+import { useLocation } from 'react-router-dom';
+import './Play.css';
 
 function Play() {
-    // const { artworkData } = props;
-    // console.log(artworkData)
+
+    const location = useLocation();
+
+    let imgID = useRef<string | null>(location.state.imgID)
+    let [imgURL, setImageURL] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (imgID) {
+            setImageURL(`https://www.artic.edu/iiif/2/${imgID.current}/full/800,/0/default.jpg`)
+        }
+    }, [imgID])
 
     return (
-        <>
+        <main className='main'>
             <Header />
-            <main id="explore">
+            <section id="play">
+                {(() => {
+                    if (imgURL) {
+                        return (
+                            <Board
+                                imgURL={imgURL}
+                            />
+                        )
+                    }
+                })()}
 
-                Explore page
-            </main>
-        </>
+            </section>
+        </main>
     )
 }
 

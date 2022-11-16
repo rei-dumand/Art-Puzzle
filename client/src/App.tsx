@@ -26,10 +26,10 @@ function App() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
-    
+
     const navigate = useNavigate();
 
-    const handleForm = (id : String) => {
+    const handleForm = (id: String) => {
         console.log(id)
         if (id === "login") {
             logInWithEmailAndPassword(email, password)
@@ -40,11 +40,14 @@ function App() {
 
         }
     }
-    
-    console.log(auth);
+    // console.log(auth);
+
+
     let artworkData = useRef<Artwork[] | null>(null);
     let fetchedOnce = useRef<boolean>(false);
     const [arrImgID, setArrImgID] = useState<string[] | null>(null);
+    const [heroImgID, setHeroImgID] = useState<string | null>(null);
+    let heroImg = useRef<HTMLImageElement | null>(null)
 
     async function fetchArtworkMetadata() {
         artworkData.current = await axios
@@ -76,6 +79,8 @@ function App() {
             let arrArtworkData: Artwork[] = artworkData.current!;
             // console.log(arrArtworkData)
             setArrImgID(arrArtworkData.map((item) => item.image_id))
+            const randIndex = Math.floor(Math.random() * arrArtworkData.length)
+            setHeroImgID(arrArtworkData[randIndex].image_id)
         }
 
         if (!fetchedOnce.current) setupImgGrid();
@@ -83,6 +88,14 @@ function App() {
         fetchedOnce.current = true;
 
     }, [fetchedOnce])
+
+    useEffect(() => {
+        if (heroImgID) {
+            let img = new Image();
+            img.src = `https://www.artic.edu/iiif/2/${heroImgID}/full/800,/0/default.jpg`
+            heroImg.current = img;
+        }
+    }, [heroImgID])
 
     // Test endpoint to remove
     useEffect(() => {
@@ -94,11 +107,25 @@ function App() {
         console.log(artworkData)
     }, [artworkData])
 
+
     return (
         <div className="App">
             <Routes>
                 <Route path="/" element={<Landing />} />
-                <Route path="/home" element={<Home artworkData={artworkData.current} arrImgID={arrImgID} />} />
+                <Route path="/home" element={
+                    <Home
+                        heroImg={heroImg.current}
+                        heroImgID={heroImgID}
+                        artworkData={artworkData.current}
+                        arrImgID={arrImgID}
+                    />
+                } />
+                <Route path="/explore" element={
+                    <Explore
+                        artworkData={artworkData.current}
+                        arrImgID={arrImgID}
+                    />
+                } />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/play" element={<Play />} />
                 <Route path="/login" element={<Login element={
@@ -119,7 +146,6 @@ function App() {
                         handleForm={() => handleForm("signup")}
                     />
                 } />} />
-                <Route path="/explore" element={<Explore /*artworkData={artworkData}*/ />} />
             </Routes>
         </div>
     );

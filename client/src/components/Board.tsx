@@ -3,12 +3,14 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import Tile from './Tile'
 
-import imgURL from '../img/1964.336 - Paris Street; Rainy Day.jpg'
+import { shuffle } from './Helpers'
 
-import {shuffle} from './Helpers'
+type props = {
+    imgURL : string;
+}
 
-
-function Board() {
+function Board(props : props) {
+    const {imgURL} = props
 
     interface Board {
         width: number
@@ -43,6 +45,7 @@ function Board() {
         let img;
         const fetchImage = async () => {
             img = await loadImage(imgURL)
+            console.log(img)
             setImage(img)
         }
         fetchImage()
@@ -63,7 +66,7 @@ function Board() {
                 height: board.current.height,
             });
 
-            let userSetDiv = 10 // This value should be changed by the user using difficulties.
+            let userSetDiv = 5 // This value should be changed by the user using difficulties.
             rowDiv.current = userSetDiv;
             colDiv.current = Math.round(userSetDiv / aspectRatio);
 
@@ -71,11 +74,11 @@ function Board() {
             tileWidth.current = (board.current.width / rowDiv.current!);
             tileHeight.current = (board.current.height / colDiv.current!);
 
-            setTiles(shuffle([...Array(tileCount).keys()]))
+            setTiles(shuffle([...Array(tileCount).keys()], startTileID))
         }
 
         if (image) {
-            console.log("image has loaded: ", image)
+            // console.log("image has loaded: ", image)
             setup();
         }
     }, [image])
@@ -86,7 +89,7 @@ function Board() {
         if (sourceTile === null) {
             setSourceTile(tileClickIndex)
         } else {
-            swapTiles(tileClickIndex)  
+            swapTiles(tileClickIndex)
             setSourceTile(null)
             if (activeTileID.current !== null) {
                 activeTileID.current = null
@@ -99,22 +102,20 @@ function Board() {
         setTiles(swappedTiles)
     }
 
-    function swap(tiles : number[], src : number, dest : number) {
+    function swap(tiles: number[], src: number, dest: number) {
         const tilesResult = [...tiles];
         [tilesResult[src], tilesResult[dest]] = [tilesResult[dest], tilesResult[src]];
         return tilesResult;
-      }
+    }
 
-
-      
-      useEffect(() => {
-        function hasWon(tiles : number[]) {
+    useEffect(() => {
+        function hasWon(tiles: number[]) {
             if (tiles) {
                 for (let i = 0; i < tiles.length; i++) {
                     if (i !== tiles[i]) return
                 }
                 return console.log("nice one") // Plug a request to save this instance of game as a success
-    
+
             }
         }
         if (tiles) hasWon(tiles)
@@ -146,7 +147,7 @@ function Board() {
                             startTileID={startTileID.current}
                         />
                     ))}
-                </ul>                
+                </ul>
             </>
         )
     }

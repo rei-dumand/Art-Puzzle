@@ -78,8 +78,8 @@ function Tile(props: any) {
             >
                 tile: {tile} <br></br> index: {index}
             </li>
-
-            {/* {(() => {
+{/* 
+            {(() => {
                 if (startTileID === tile) {
                     return (
                         <div

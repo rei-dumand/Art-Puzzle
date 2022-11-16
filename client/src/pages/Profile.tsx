@@ -13,9 +13,11 @@ function Profile(props: any) {
     return (
         <>
             <Header />
-            <main id="profile">
-                This is the profile page
-                <Link to="../home">Click here to go to home page</Link>
+            <main className='main'>
+                <section id="profile">
+                    This is the profile page
+                    <Link to="../home">Click here to go to home page</Link>
+                </section>
             </main>
         </>
     )
