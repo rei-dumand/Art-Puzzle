@@ -2,33 +2,36 @@
 
 ## Stage
 
-Minimum Viable Product (MVP)
+Development (Core Features)
 
 ## Concept
 
-A simple puzzle game that uses images of paintings from a free museum API as its base game material.
-
-## Constraints
-
-- This should be a full stack CRUD application.
-- The game should operate like a puzzle game.
-- Since it is only aimed to be deployed as a desktop-first web application, it should consider how players could play with just keyboard inputs.
-- The web application should allow for secure user registration.
-- A puzzle should be saved even if incomplete, so that a user can resume at a later session.
-- The game should have multiple levels of difficulties.
-
-## Deliverables
-
-- A GitHub repository.
-- A presentation slides deck.
-
-## Stack (provisional)
-While subject to change:
-- Front-end: React with Typescript
-- Back-end: Express.js | Knex.js | (Socket.io?) | PostreSQL | Typescript
+A simple themed puzzle game that uses artworks from the Art Institute of Chicago's public API.
 
 ## Motivation
 
-- This project is a stepping stone in learning how to create interactive web experiences.
-- One key feature that will be explored will be the use of a \<Canvas\>.
-- This game will also make extensive use of a database to store a user's progress. A socket connection might be considered.
+Current existing puzzle web applications tend to be subpar experiences, as they attempt to replicate real-life puzzles without questioning how certain aspects of the game translate in digital. A short qualitative analysis identified two core problems with most puzzle web apps:
+- clunky drag-drop UX;
+- outdated or unresolved website designs.
+
+The Art Puzzle app solves the former UX problem by taking a more pleasant click-click approach for both touchpad and mouse users on PCs. 
+A mobile port is currently not under development but under consideration.
+
+By curating collections of classical artworks in a minimalist interface, the game retains an opinionated but unified aesthetic that other applications fail to achieve.
+
+## Current Stack
+
+React | Express.js | Knex.js | PostgreSQL | Node.js
+
+## Project History
+
+2022/11/25 - Minimum Viable Product.
+
+## Features Roadmap
+
+- [ ] Sign-up / sign-in.
+- [x] Basic puzzle mechanics.
+- [ ] Art curator-gallery-style profile where completed puzzles are displayed.
+- [ ] Puzzle recommendation page.
+- [ ] Multiple art collections.
+- [ ] Automatic Puzzle game state saving.
