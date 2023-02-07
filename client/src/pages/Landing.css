@@ -39,3 +39,9 @@
     color: unset
 }
 
+#spinner {
+    background-color: #e0e1dd;
+    width: 80px;
+    height: 10px;
+}
+
